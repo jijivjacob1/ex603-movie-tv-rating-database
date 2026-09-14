@@ -1,0 +1,56 @@
+
+users(  user_id int  not null PK
+        email varchar not null UK
+        displayname not null varchar )
+
+
+movies (   movie_id int not null PK
+          title varchar not null
+          is_available varchar not null default 'Y'
+          release_year int not null )
+
+
+The relationship between ratings and users is handled differently: 
+when a user account is deleted, ON DELETE CASCADE removes 
+that user's ratings along with them, 
+since a rating with no rater isn't a meaningful record, 
+and most privacy-driven account deletions 
+expect associated activity to go too.
+For the foreign key from ratings to movies, 
+this makes ON DELETE RESTRICT the right choice — 
+the application should never be able to physically 
+remove a movie that still has ratings attached,
+ forcing any true deletion through the soft-delete path instead(is_available)
+ratings(  rating_id int PK
+         user_id int not null FK 
+         movie_id int not null  FK
+        score   int not null default 0
+         rated_at date not null
+    FOREIGN KEY (user_id) REFERENCES users(user_id) ON DELETE CASCADE,
+    FOREIGN KEY (movie_id) REFERENCES movies(movie_id) ON DELETE RESTRICT
+        )
+
+   
+genres (   genre_id  int not null PK
+           name UK varchar not null
+        )
+
+movie_id	CASCADE	A junction row only exists to say "this movie belongs to this genre."
+ Once the movie itself is gone, that association is meaningless — 
+ there's nothing left for it to describe. 
+ Cascading avoids leaving orphaned rows that reference a 
+ nonexistent movie.
+ One caveat since movies table uses soft-deletes (is_available) 
+ rather than hard deletes, movie_id's ON DELETE CASCADE will rarely fire
+  in practice — it's really there as a safety net for the 
+  rare hard-delete
+genre_id	RESTRICT	Genres are reference/lookup data 
+(Action, Drama, Comedy), and are almost always shared across many movies.
+ If someone tries to delete a genre that's still tagged on movies,
+  you want that blocked 
+movie_genres( movie_id int not null PK, FK
+              genre_id int not null PK, FK
+     FOREIGN KEY (movie_id) REFERENCES movies(movie_id)
+        ON DELETE CASCADE,
+    FOREIGN KEY (genre_id) REFERENCES genres(genre_id)
+        ON DELETE RESTRICT)

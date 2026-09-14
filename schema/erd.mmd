@@ -1,0 +1,40 @@
+---
+config:
+  layout: elk
+---
+erDiagram
+    USER ||--o{ RATING : submits
+    MOVIE ||--o{ RATING : receives
+    MOVIE ||--o{ MOVIE_GENRE : has
+    GENRE ||--o{ MOVIE_GENRE : categorizes
+
+    USER {
+        int user_id PK
+        varchar email UK
+        varchar displayname 
+    }
+
+    MOVIE {
+        int movie_id PK
+        varchar title
+        varchar is_available
+        int release_year
+    }
+
+    RATING {
+        int rating_id PK
+        int user_id FK
+        int movie_id FK
+        int score
+        date rated_at
+    }
+
+    GENRE {
+        int genre_id PK
+        varchar name UK
+    }
+
+    MOVIE_GENRE {
+        int movie_id PK, FK
+        int genre_id PK, FK
+    }

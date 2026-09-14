@@ -1,0 +1,27 @@
+for the actor role we have user schema
+users(  user_id int   PK
+        email varchar 
+        displayname varchar )
+
+for the producer role we have movies schema
+movies (   movie_id int  PK
+           title varchar 
+           is_available varchar 
+           release_year int  )
+
+for the event role we have the rating schema
+ratings(  rating_id int PK
+          user_id int
+          movie_id int  
+          score  int 
+          rated_at date 
+        )
+
+for the  catalog role we have the genre schema    
+genres (    genre_id int PK
+            name varchar 
+        )
+
+for the junction role we have the movie_genres schema
+movie_genres( movie_id int PK
+              genre_id int PK)

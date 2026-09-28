@@ -6,7 +6,7 @@ users(  user_id int   PK
 for the producer role we have movies schema
 movies (   movie_id int  PK
            title varchar 
-           is_available varchar 
+           is_available boolean 
            release_year int  )
 
 for the event role we have the rating schema

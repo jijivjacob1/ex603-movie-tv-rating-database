@@ -38,3 +38,25 @@ Several design decisions are worth noticing:
 
 The product description mentions movies and TV shows, but the current schema models movies only. Supporting TV shows requires either a separate TV-show model or a shared media table before ratings can apply to both types without ambiguity.
 
+## Query catalogue
+
+### Unit 4: Aggregation
+
+In these queries, the event table is `ratings`, the metric is `score`, the producer is a movie, the actor is a user, and region is `device_country`. A *failure* is a rating with `rating_status = 'withdrawn'`.
+
+| # | Query | Business question it answers | Location |
+|---|---|---|---|
+| 4.1.1 | Whole-table summary of `score` (count, total, average, min, max, distinct users) | What does the rating pool look like overall, and how many people contribute to it? | `queries/unit4/q4_1.sql` |
+| 4.1.1b | Missing-score check | Are any ratings missing a score? | `queries/unit4/q4_1.sql` |
+| 4.1.1c | Score range by rating status | Is any group of ratings distorting the metric? (Withdrawn ratings all carry a 0.5 placeholder.) | `queries/unit4/q4_1.sql` |
+| 4.1.1d | Whole-table summary excluding withdrawn ratings | What does the rating pool look like when only genuine ratings are counted? | `queries/unit4/q4_1.sql` |
+| 4.1.2 | Rating count and average score per movie, most-rated first (`LEFT JOIN` keeps unrated movies) | Which movies get the most attention, and does attention line up with how well they are rated? | `queries/unit4/q4_1.sql` |
+| 4.1.2b | Same, excluding withdrawn ratings | How do movies compare once placeholder scores are removed? | `queries/unit4/q4_1.sql` |
+| 4.1.3 | Withdrawn rate per movie, `HAVING COUNT(*) >= 10` | Which movies have enough ratings for their failure rate to be trusted, and what is that rate? | `queries/unit4/q4_1.sql` |
+| 4.1.4 | Ratings, average score and withdrawn rate by region × release era | How does performance differ across regions, and does it differ for newer versus older titles within a region? | `queries/unit4/q4_1.sql` |
+| 4.2 A | Total and withdrawn ratings per movie in one pass (`SUM(CASE ...)`) | For each movie, how many ratings did it receive, and how many of them were withdrawn? | `queries/unit4/q4_2.sql` |
+| 4.2 B | Regional subtotals and platform grand total (`GROUPING SETS`) | How does each region compare, and how does it stand against the platform as a whole? | `queries/unit4/q4_2.sql` |
+| 4.2 C | Two-step baseline (`WITH` summary per movie, then aggregate movies with 10+ ratings) | What is a typical withdrawal rate and average score for a high-volume movie? | `queries/unit4/q4_2.sql` |
+
+Findings from these queries are written up in `analysis/unit4.md` and `analysis/unit4-finding.md`.
+

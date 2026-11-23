@@ -1,3 +1,7 @@
+-- Task 4.1: Summarize the ratings with aggregates.
+-- Question: What does the rating pool look like overall, per movie, and by
+-- region and release era, and which movies have the highest withdrawal rate?
+
 --Calculate the following statistics across the entire event table
 --using your theme's metric: the count, total,
 --average, minimum,

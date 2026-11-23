@@ -1,3 +1,7 @@
+-- Task 3.1: Filter, sort and label the ratings data.
+-- Question: Which movies are active and highly rated, what rating statuses exist,
+-- and how can ratings be filtered, cleaned of missing values and labelled so
+-- someone who does not use SQL can read them?
 
 
 --Find active, highly rated producers. Use your theme’s filter condition from the appendix.

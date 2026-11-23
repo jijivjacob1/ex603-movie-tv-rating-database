@@ -1,3 +1,5 @@
+-- Task 3.3: Answer a two-step question with a subquery.
+-- Question: Which users were involved in a flagged (disputed) rating?
 
 --Two-step question: which users were involved in a flagged (disputed) rating event?
 

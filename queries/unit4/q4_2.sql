@@ -1,3 +1,7 @@
+-- Task 4.2: Conditional aggregation, grouping sets and two-step summaries.
+-- Question: How many ratings and withdrawals does each movie and region have,
+-- and what is a typical withdrawal rate for a high-volume movie?
+
 --Part A: total ratings and withdrawn (failure) ratings per movie in one pass.
 --No WHERE clause: CASE inside the aggregate does the classifying.
 

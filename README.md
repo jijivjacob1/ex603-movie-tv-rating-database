@@ -163,7 +163,7 @@ Write-ups: [`analysis/`](analysis/) contains one write-up and one finding memo p
 
 ## Video presentation
 
-▶️ **[Watch the 5-minute walkthrough](VIDEO_URL_HERE)**
+▶️ **[Watch the 5-minute walkthrough](https://youtu.be/Qe1XH07tpUs)**
 
 ## How to run it
 
